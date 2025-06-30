@@ -2,7 +2,7 @@
 
 import "@/styles/globals.css";
 import { Eye, EyeOff, User, Lock } from 'lucide-react';
-import { signIn } from 'next-auth/react';
+import { signIn, getSession } from 'next-auth/react';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -23,17 +23,22 @@ export default function LoginFormStudent() {
     });
 
     if (res.ok) {
-      router.push('/student/dashboard/home');
+      const session = await getSession();
+      const role = session?.user?.role;
+
+      if (role === 'student') router.push('/student/dashboard/home');
+      else router.push('/');
     } else {
-      alert('Login failed');
+      alert('Login gagal');
     }
   };
+
 
   return (
     <div className="grid grid-col items-center justify-center min-h-80 bg-white m-8 rounded-2xl shadow-md min-w-md">
       {/* Heading */}
   <div className="text-center space-y-1 m-6">
-    <h2 className="text-2xl font-bold text-gray-900">Welcome Back</h2>
+    <h2 className="text-2xl font-bold text-gray-900">Student</h2>
     <p className="text-sm text-gray-500">Sign in to your account to continue</p>
   </div>
     <form

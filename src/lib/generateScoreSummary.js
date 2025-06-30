@@ -1,58 +1,47 @@
-import connectToDatabase from "@/lib/mongoose";
 import Score from "@/models/Score";
-import HotsQuestion from "@/models/HotsQuestion";
 import ScoreSummary from "@/models/ScoreSummary";
+import mongoose from "mongoose";
 
-export async function generateScoreSummary(studentId) {
-  await connectToDatabase();
+export default async function generateScoreSummary(student_id) {
+  // Pastikan ID valid
+  const studentObjectId = new mongoose.Types.ObjectId(student_id);
 
-  // 1. Ambil semua skor milik siswa
-  const scores = await Score.find({ student_id: studentId });
+  // Ambil semua skor siswa
+  const scores = await Score.find({ student_id: studentObjectId });
 
-  if (!scores.length) return { status: "no_scores_found" };
+  if (!scores.length) return;
 
-  // 2. Ambil semua HOTS question untuk mapping chapter_number
-  const allQuestions = await HotsQuestion.find({});
-  const questionMap = {};
-  for (const q of allQuestions) {
-    questionMap[q.question_id] = q.chapter_number;
+  // Hapus summary lama
+  await ScoreSummary.deleteMany({ student_id: studentObjectId });
+
+  // Hitung per bab
+  const perChapter = {};
+  for (const s of scores) {
+    if (!perChapter[s.chapter_number]) {
+      perChapter[s.chapter_number] = { total: 0, count: 0 };
+    }
+    perChapter[s.chapter_number].total += s.score;
+    perChapter[s.chapter_number].count++;
   }
 
-  // 3. Kelompokkan skor per chapter
-  const chapterScores = {}; // { 1: [80, 90], 2: [70, 85] }
-  for (const score of scores) {
-    const chapter = questionMap[score.question_id];
-    if (!chapterScores[chapter]) chapterScores[chapter] = [];
-    chapterScores[chapter].push(score.score);
-  }
-
-  // 4. Hitung dan simpan summary per chapter
-  const summaries = [];
-  for (const [chapter, values] of Object.entries(chapterScores)) {
-    const avg = values.reduce((a, b) => a + b, 0) / values.length;
-    summaries.push({
-      student_id: studentId,
-      chapter_number: parseInt(chapter),
-      average_score: Math.round(avg),
-      total_questions: values.length,
-      level: "per_chapter"
+  // Simpan ringkasan per chapter
+  for (const [chapterStr, { total, count }] of Object.entries(perChapter)) {
+    const chapter_number = parseInt(chapterStr);
+    await ScoreSummary.create({
+      student_id,
+      chapter_number,
+      average_score: total / count,
+      total_questions: count,
+      level: "per_chapter",
     });
   }
 
-  // 5. Hitung total summary
-  const allScores = Object.values(chapterScores).flat();
-  const overallAvg = allScores.reduce((a, b) => a + b, 0) / allScores.length;
-
-  summaries.push({
-    student_id: studentId,
-    average_score: Math.round(overallAvg),
-    total_questions: allScores.length,
-    level: "total"
+  // Simpan ringkasan total
+  const totalScore = scores.reduce((sum, s) => sum + s.score, 0);
+  await ScoreSummary.create({
+    student_id,
+    average_score: totalScore / scores.length,
+    total_questions: scores.length,
+    level: "total",
   });
-
-  // 6. Simpan semuanya
-  await ScoreSummary.deleteMany({ student_id: studentId }); // bersihkan lama
-  await ScoreSummary.insertMany(summaries);
-
-  return { status: "ok", summaries };
 }

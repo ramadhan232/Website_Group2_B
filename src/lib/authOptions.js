@@ -32,6 +32,7 @@ export const authOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
+        console.log('Setting token.role =', user.role);
         token.role = user.role;
         token.name = user.name;
       }
@@ -43,9 +44,18 @@ export const authOptions = {
         session.user.name = token.name;
       return session;
     },
+    async redirect({ url, baseUrl, token, user }) {
+      const role = token?.role || user?.role;
+
+      console.log('🔁 Redirecting based on role:', role);
+
+      if (role === 'teacher') return `${baseUrl}/teacher/dashboard/home`;
+      if (role === 'student') return `${baseUrl}/student/dashboard/home`;
+      return baseUrl;
+    }, 
   },
   pages: {
-    signIn: "/student/auth/login",
+    signIn: "/",
   },
   secret: process.env.NEXTAUTH_SECRET,
 };

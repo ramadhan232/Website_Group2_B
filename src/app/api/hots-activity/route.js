@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import connectToDatabase from '@/lib/mongoose';
 import HotsActivity from '@/models/HotsActivity';
 
+
 export async function GET() {
   await connectToDatabase();
   const activities = await HotsActivity.find({});

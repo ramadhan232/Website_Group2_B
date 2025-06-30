@@ -41,7 +41,7 @@ export default function HomePage() {
             📘 Start Learnings
           </a>
           <a
-            href="/dashboard"
+            href="/teacher/dashboard/home"
             className="w-100 h-10 content-center-safe bg-linear-to-t from-teal-800 to-teal-600 hover:bg-green-700 text-white py-4 rounded-xl shadow-lg transition-all font-semibold text-lg"
           >
             🎓 Teacher Dashboard

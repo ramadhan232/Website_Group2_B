@@ -2,20 +2,19 @@ import { NextResponse } from 'next/server';
 import connectToDatabase from '@/lib/mongoose';
 import ScoreSummary from '@/models/ScoreSummary';
 
-// GET /api/score-summary
 export async function GET(req) {
   await connectToDatabase();
 
-  try {
-    const { searchParams } = new URL(req.url);
-    const studentId = searchParams.get('student_id');
-    
-    const filter = studentId ? { student_id: studentId } : {};
+  const { searchParams } = new URL(req.url);
+  const student_id = searchParams.get('student_id');
+  const chapter = searchParams.get('chapter');
+  const level = searchParams.get('level'); // optional: 'per_chapter', 'total', etc.
 
-    const summaries = await ScoreSummary.find(filter);
-    return NextResponse.json(summaries);
-  } catch (err) {
-    console.error('❌ Failed to fetch score summaries:', err);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
-  }
+  const filter = {};
+  if (student_id) filter.student_id = student_id;
+  if (chapter) filter.chapter_number = Number(chapter);
+  if (level) filter.level = level;
+
+  const data = await ScoreSummary.find(filter);
+  return NextResponse.json(data);
 }

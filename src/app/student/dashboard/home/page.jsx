@@ -9,12 +9,6 @@ import { useEffect } from 'react';
 import LogoutButton from '@/components/student/LogoutButton';
 import LiteracyList from '@/components/student/LiteracyList';
 
-const navigation = [
-  { name: 'Product', href: '#' },
-  { name: 'Features', href: '#' },
-  { name: 'Marketplace', href: '#' },
-  { name: 'Company', href: '#' },
-]
 
 
 export default function StudentHomePage() {

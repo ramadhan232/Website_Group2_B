@@ -1,65 +1,111 @@
 'use client';
 
+import "@/styles/globals.css";
+import { Eye, EyeOff, User, Lock } from 'lucide-react';
+import { signIn, getSession } from 'next-auth/react';
 import { useState } from 'react';
-import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
-export default function LoginFormTeacher({ role = 'teacher' }) {
+export default function LoginFormTeacher() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
-  const [form, setForm] = useState({ username: '', password: '' });
-  const [error, setError] = useState(null);
-
-  const handleChange = (e) => {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null);
 
     const res = await signIn('credentials', {
-      ...form,
-      redirect: false
+      redirect: false,
+      username,
+      password,
     });
 
     if (res.ok) {
-      router.push('/teacher/dashboard');
+      const session = await getSession();
+      const role = session?.user?.role;
+
+      if (role === 'teacher') router.push('/teacher/dashboard/home');
+      else router.push('/');
     } else {
-      setError('Login gagal. Periksa kembali username & password.');
+      alert('Login gagal');
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 max-w-md mx-auto bg-white p-6 rounded shadow">
-      <h1 className="text-xl font-bold text-center text-blue-700 mb-2">Login Guru</h1>
+    <div className="grid grid-col items-center justify-center min-h-80 bg-white m-8 rounded-2xl shadow-md min-w-md">
+      {/* Heading */}
+  <div className="text-center space-y-1 m-6">
+    <h2 className="text-2xl font-bold text-gray-900">Teacher</h2>
+    <p className="text-sm text-gray-500">Sign in to your account to continue</p>
+  </div>
+    <form
+  onSubmit={handleSubmit}
+  className="grid grid-cols-1 w-full md:min-w-sm gap-6"
+>
+  
 
+  {/* Username */}
+  <div className="space-y-1">
+    <div className="flex flex-row gap-2 items-center">
+      <User className="h-4 w-4" />
+    <label htmlFor="username" className="col-span-3 text-sm font-medium text-gray-700">
+      Username
+    </label>
+    </div>
+    
+    <div className="relative">
       <input
         type="text"
-        name="username"
-        placeholder="Username"
-        className="w-full border p-2 rounded"
-        value={form.username}
-        onChange={handleChange}
+        id="username"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
         required
+        placeholder="Your Username"
+        className="w-sm  text-sm rounded-md border border-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
       />
+    </div>
+  </div>
+
+  {/* Password */}
+  <div className="space-y-1">
+    <div className="flex flex-row gap-2 items-center">
+      <Lock className="h-4 w-4" />
+      <label htmlFor="password" className="text-sm font-medium text-gray-700">
+      Password
+    </label>
+    </div>
+    <div className="relative">
       <input
-        type="password"
-        name="password"
-        placeholder="Password"
-        className="w-full border p-2 rounded"
-        value={form.password}
-        onChange={handleChange}
+        type={showPassword ? 'text' : 'password'}
+        id="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
         required
+        placeholder="your password"
+        className="w-full pl-10  text-sm rounded-md border border-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
       />
-
-      {error && <p className="text-red-600 text-sm">{error}</p>}
-
       <button
-        type="submit"
-        className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+        type="button"
+        onClick={() => setShowPassword((prev) => !prev)}
+        aria-label="Toggle password visibility"
+        className="absolute inset-y-0 right-1 pr-3 flex items-center text-gray-400 hover:text-gray-700"
       >
-        Masuk
+        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
       </button>
-    </form>
+    </div>
+  </div>
+
+  {/* Submit */}
+  <button
+    type="submit"
+    className="w-full h-8 bg-indigo-600 hover:bg-indigo-700 text-white py-2 text-sm font-semibold rounded-lg transition-colors"
+  >
+    Login
+  </button>
+
+</form>
+</div>
   );
 }
