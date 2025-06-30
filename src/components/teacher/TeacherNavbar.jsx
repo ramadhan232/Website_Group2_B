@@ -20,8 +20,8 @@ export default function TeacherNavbar() {
           <div className="hidden md:flex space-x-6 flex-row gap-8">
             <a href="/teacher/dashboard/home" className="text-gray-700 hover:text-blue-600 font-medium">Home</a>
             <a href="/teacher/dashboard/student" className="text-gray-700 hover:text-blue-600 font-medium">Student</a>
-            <a href="/teacher/dashboard/score" className="text-gray-700 hover:text-blue-600 font-medium">Skor</a>
-            <a href="/dashboard/teacher/hots/summary" className="text-gray-700 hover:text-blue-600 font-medium">Summary</a>
+            <a href="/teacher/dashboard/score" className="text-gray-700 hover:text-blue-600 font-medium">Score</a>
+            <a href="/teacher/dashboard/score/summary" className="text-gray-700 hover:text-blue-600 font-medium">Summary</a>
           </div>
 
           {/* User Info + Logout */}

@@ -20,9 +20,8 @@ export default function StudentNavbar() {
           <div className="hidden md:flex space-x-6 flex-row gap-8">
             <a href="/student/dashboard/home" className="text-gray-700 hover:text-blue-600 font-medium">Home</a>
             <a href="/student/dashboard/hots" className="text-gray-700 hover:text-blue-600 font-medium">HOTS</a>
-            <a href="/student/dashboard/score" className="text-gray-700 hover:text-blue-600 font-medium">Skor</a>
-            <a href="/dashboard/student/hots/submitted" className="text-blue-600 hover:underline text-sm">📖 Lihat HOTS yang telah dijawab
-</a>
+            <a href="/student/dashboard/score" className="text-gray-700 hover:text-blue-600 font-medium">Score</a>
+
           </div>
 
           {/* User Info + Logout */}
