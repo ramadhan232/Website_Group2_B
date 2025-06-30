@@ -35,7 +35,7 @@ export default function RegisterFormStudent() {
     if (!res.ok) {
       setError(data.message || 'Registration failed');
     } else {
-      router.push('student/login');
+      router.push('login');
     }
   };
 
