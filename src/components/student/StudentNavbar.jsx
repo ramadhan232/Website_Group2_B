@@ -1,0 +1,43 @@
+'use client';
+
+import LogoutButton from '@/components/student/LogoutButton';
+import { useSession, signOut } from 'next-auth/react';
+
+
+export default function StudentNavbar() {
+  const { data: session } = useSession();
+
+  return (
+    <nav className="bg-white shadow sticky top-0 z-50 space-x-3">
+      <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between h-20 items-center">
+          {/* Logo / Brand */}
+          <div className="flex items-center space-x-2">
+            <span className="text-xl font-bold text-blue-600">English Lens</span>
+          </div>
+
+          {/* Navigation Links */}
+          <div className="hidden md:flex space-x-6 flex-row gap-8">
+            <a href="/student/dashboard/home" className="text-gray-700 hover:text-blue-600 font-medium">Home</a>
+            <a href="/student/dashboard/hots" className="text-gray-700 hover:text-blue-600 font-medium">HOTS</a>
+            <a href="/student/dashboard/score" className="text-gray-700 hover:text-blue-600 font-medium">Skor</a>
+            <a href="/dashboard/student/hots/submitted" className="text-blue-600 hover:underline text-sm">📖 Lihat HOTS yang telah dijawab
+</a>
+          </div>
+
+          {/* User Info + Logout */}
+          <div className="flex items-center space-x-4 justify-items-end">
+            <div className="flex items-center space-x-2">
+              <div className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-semibold">
+                {session?.user?.name?.[0] || 'S'}
+              </div>
+              <span className="hidden md:block text-sm text-gray-600">{session?.user?.name || 'Siswa'}</span>
+            </div>
+
+            <LogoutButton />
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
+}

@@ -1,11 +1,24 @@
 'use client';
 
-import { useSession, signOut } from 'next-auth/react';
+import { useState } from 'react'
+import { Dialog, DialogPanel } from '@headlessui/react'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import LogoutButton from '@/components/student/LogoutButton';
+import LiteracyList from '@/components/student/LiteracyList';
+
+const navigation = [
+  { name: 'Product', href: '#' },
+  { name: 'Features', href: '#' },
+  { name: 'Marketplace', href: '#' },
+  { name: 'Company', href: '#' },
+]
+
 
 export default function StudentHomePage() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const { data: session, status } = useSession();
   const router = useRouter();
 
@@ -24,12 +37,8 @@ export default function StudentHomePage() {
   const name = session?.user?.name;
   
   return (
-    <div className="p-6 min-h-screen flex flex-col items-center justify-center bg-gray-50">
-      <h1 className="text-2xl font-bold mb-4">
-        Welcome, {name ?? 'User'}!
-      </h1>
-      <LogoutButton />
+    <div className="space-y-10">
+      <LiteracyList />
     </div>
   );
 }
-
