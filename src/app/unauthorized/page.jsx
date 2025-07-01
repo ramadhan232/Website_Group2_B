@@ -20,11 +20,11 @@ export default function UnauthorizedPage() {
 
         {role ? (
           <p className="text-gray-700 mb-6">
-            Anda login sebagai <span className="font-semibold">{role}</span>. Halaman ini tidak tersedia untuk peran Anda.
+            You are logged in as <span className="font-semibold">{role}</span>. This page is not available for your role.
           </p>
         ) : (
           <p className="text-gray-700 mb-6">
-            Anda tidak memiliki izin untuk mengakses halaman ini.
+            You do not have permission to access this page.
           </p>
         )}
 
