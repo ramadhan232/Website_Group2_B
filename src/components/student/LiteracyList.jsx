@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import '@/styles/globals.css';
 
 export default function LiteracyList() {
   const [chapters, setChapters] = useState([]);
@@ -24,11 +25,11 @@ export default function LiteracyList() {
   }, []);
 
   return (
-    <div className="max-w-5xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4 text-blue-700">📚 Materi Literacy (Semester 1)</h1>
+    <div className="grid grid-col gap-y-8 max-w-5xl mx-auto pt-8">
+      <h1 className=" justify-center text-center text-2xl font-bold p-4 text-blue-700">Literacy material</h1>
 
       {loading ? (
-        <p className="text-gray-500">Loading materi...</p>
+        <p className="text-gray-500">Loading Material...</p>
       ) : chapters.length === 0 ? (
         <p className="text-gray-500">Belum ada materi literacy tersedia.</p>
       ) : (
@@ -38,14 +39,21 @@ export default function LiteracyList() {
               <h2 className="text-lg font-semibold text-blue-800 mb-1">
                 Chapter {item.chapter_number}: {item.title}
               </h2>
+              <div className='flex max-w-full justify-center'>
+              {item.media?.images?.[0] && (
+                <img
+                  src={item.media.images[0]}
+                  alt={`Ilustrasi ${item.title}`}
+                  className=" w-40 h-40 object-cover rounded mb-4"
+                />
+              )}</div>
               <p className="text-sm text-gray-600 mb-2">
-                {item.description?.slice(0, 120)}...
+                {item.genre}...
               </p>
               <Link
                 href={`/student/dashboard/literacy/${item._id}`}
                 className="text-sm text-blue-600 hover:underline"
-              >
-                Baca selengkapnya →
+              ><p className="text-sm text-blue-600 hover:underline">Baca selengkapnya →</p>
               </Link>
             </div>
           ))}

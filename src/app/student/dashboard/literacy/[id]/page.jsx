@@ -25,24 +25,25 @@ export default async function LiteracyDetailPage({ params }) {
 
   return (
     <div className='flex w-full justify-center'>
-    <div className="max-w-3xl mx-auto p-6">
+    <div className="grid grid-cols-1 gap-y-10 max-w-3xl mx-auto p-6 ">
+    
       <h1 className="text-xl font-bold text-blue-700 mb-2">
-        📘 Chapter {literacy.chapter_number}: {literacy.title}
+        Chapter {literacy.chapter_number}: {literacy.title}
       </h1>
 
-      {literacy.description && (
-        <p className="text-gray-600 mb-4 italic">{literacy.description}</p>
-      )}
+      <div className="grid grid-cols-1 gap-y-2 max-w-3xl mx-auto p-6 ">
+        {literacy.media?.images?.[0] && (
+          <img
+            src={literacy.media.images[0]}
+            alt={`Ilustrasi ${literacy.title}`}
+            className="w-full max-h-96 object-cover rounded mb-4"
+          />
+        )}
+        {literacy.genre && (
+          <p className="flex text-black mb-4 italic">Genre: {literacy.genre}</p>
+        )}</div>
 
-      {literacy.media?.images?.[0] && (
-        <img
-          src={literacy.media.images[0]}
-          alt={`Ilustrasi ${literacy.title}`}
-          className="w-full max-h-96 object-cover rounded mb-4"
-        />
-      )}
-
-      <div className="prose prose-sm max-w-none text-justify mb-6">
+      <div className="prose prose-sm max-w-none text-black text-justify mb-6">
         {Array.isArray(literacy.text_content)
           ? literacy.text_content.map((paragraph, idx) => (
               <p key={idx}>{paragraph}</p>
@@ -57,9 +58,9 @@ export default async function LiteracyDetailPage({ params }) {
 
       <Link
         href={`/student/dashboard/hots/chapter/${literacy.chapter_number}`}
-        className="text-blue-600 hover:underline text-sm"
-      >
-        🔥 Kerjakan HOTS Bab {literacy.chapter_number} →
+        className="flex text-sm"
+      ><p className='text-blue-800'>Do HOTS chapter {literacy.chapter_number} activities →</p>
+        
       </Link>
     </div>
     </div>

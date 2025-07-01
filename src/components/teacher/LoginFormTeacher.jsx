@@ -34,7 +34,7 @@ export default function LoginFormTeacher() {
   };
 
   return (
-    <div className="grid grid-col items-center justify-center min-h-80 bg-white m-8 rounded-2xl shadow-md min-w-md">
+    <div className="grid grid-col items-center justify-center min-h-80 bg-white m-8 rounded-2xl shadow-md min-w-full">
       {/* Heading */}
   <div className="text-center space-y-1 m-6">
     <h2 className="text-2xl font-bold text-gray-900">Teacher</h2>
@@ -49,7 +49,7 @@ export default function LoginFormTeacher() {
   {/* Username */}
   <div className="space-y-1">
     <div className="flex flex-row gap-2 items-center">
-      <User className="h-4 w-4" />
+      <User className="text-black h-4 w-4" />
     <label htmlFor="username" className="col-span-3 text-sm font-medium text-gray-700">
       Username
     </label>
@@ -63,7 +63,7 @@ export default function LoginFormTeacher() {
         onChange={(e) => setUsername(e.target.value)}
         required
         placeholder="Your Username"
-        className="w-sm  text-sm rounded-md border border-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        className="w-sm  text-sm rounded-md border text-black border-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
       />
     </div>
   </div>
@@ -71,7 +71,7 @@ export default function LoginFormTeacher() {
   {/* Password */}
   <div className="space-y-1">
     <div className="flex flex-row gap-2 items-center">
-      <Lock className="h-4 w-4" />
+      <Lock className="text-black h-4 w-4" />
       <label htmlFor="password" className="text-sm font-medium text-gray-700">
       Password
     </label>
@@ -83,8 +83,8 @@ export default function LoginFormTeacher() {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         required
-        placeholder="your password"
-        className="w-full pl-10  text-sm rounded-md border border-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        placeholder="Your password"
+        className="w-full pl-10  text-sm rounded-md border text-black border-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
       />
       <button
         type="button"

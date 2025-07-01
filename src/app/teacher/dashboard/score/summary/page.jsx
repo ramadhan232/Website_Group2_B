@@ -41,19 +41,19 @@ export default function TeacherScoreSummaryPage() {
   }, {});
 
   return (
-    <div className="p-6 max-w-6xl mx-auto">
-      <h1 className="text-2xl font-bold text-blue-700 mb-4">📈 Rekap Nilai Siswa</h1>
+    <div className="p-6 max-w-6xl mx-auto grid grid-cols-1 gap-y-2">
+      <h1 className="text-2xl font-bold text-blue-700 mb-4">📈 Recap of Student Scores</h1>
 
       {/* Filter */}
-      <div className="flex gap-4 mb-4">
+      <div className="flex gap-4 mb-4 text-black">
         <div>
           <label className="text-sm font-medium">Chapter:</label>
           <select
             value={chapter}
             onChange={(e) => setChapter(e.target.value)}
-            className="ml-2 border rounded p-1"
+            className="ml-2 border rounded p-1 bg-gray-50"
           >
-            <option value="">Semua</option>
+            <option value="">All</option>
             {[1, 2, 3, 4].map((ch) => (
               <option key={ch} value={ch}>
                 Bab {ch}
@@ -63,13 +63,13 @@ export default function TeacherScoreSummaryPage() {
         </div>
 
         <div>
-          <label className="text-sm font-medium">Siswa:</label>
+          <label className="text-sm font-medium ">Students:</label>
           <select
             value={student}
             onChange={(e) => setStudent(e.target.value)}
-            className="ml-2 border rounded p-1"
+            className="ml-2 border rounded p-1 bg-gray-50"
           >
-            <option value="">Semua</option>
+            <option value="">All</option>
             {students.map((s) => (
               <option key={s._id} value={s._id}>
                 {s.name}
@@ -80,14 +80,14 @@ export default function TeacherScoreSummaryPage() {
       </div>
 
       {/* Tabel */}
-      <div className="overflow-x-auto bg-white shadow rounded-lg">
+      <div className="overflow-x-auto bg-white shadow rounded-lg text-black">
         <table className="min-w-full border">
           <thead className="bg-gray-100 text-sm">
             <tr>
-              <th className="p-2 border">Siswa</th>
-              <th className="p-2 border">Bab</th>
-              <th className="p-2 border">Rata-rata</th>
-              <th className="p-2 border">Tanggal</th>
+              <th className="p-2 border">Students</th>
+              <th className="p-2 border">Chapters</th>
+              <th className="p-2 border">Averages</th>
+              <th className="p-2 border">Date</th>
             </tr>
           </thead>
           <tbody>

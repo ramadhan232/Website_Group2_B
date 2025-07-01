@@ -21,16 +21,16 @@ export default function TeacherStudentListPage() {
   if (loading) return <p className="p-6">Loading students...</p>;
 
   return (
-    <div className="max-w-5xl mx-auto p-6">
-      <h1 className="text-2xl font-bold text-blue-700 mb-4">👩‍🎓 Daftar Siswa</h1>
+    <div className="max-w-5xl mx-auto p-6 grid grid-cols-1 gap-y-2">
+      <h1 className="text-2xl font-bold text-blue-700 mb-4">👩‍🎓 Student List</h1>
 
-      <table className="w-full border text-sm">
+      <table className="w-full border text-sm text-black">
         <thead className="bg-gray-100">
           <tr>
             <th className="text-left p-2 border">#</th>
-            <th className="text-left p-2 border">Nama</th>
+            <th className="text-left p-2 border">Name</th>
             <th className="text-left p-2 border">Username</th>
-            <th className="text-center p-2 border">Aksi</th>
+            <th className="text-center p-2 border">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -41,10 +41,10 @@ export default function TeacherStudentListPage() {
               <td className="p-2 border">{student.username}</td>
               <td className="p-2 border text-center">
                 <Link
-                  href={`/teacher/dashboard/students/${student._id}`}
+                  href={`/teacher/dashboard/student/${student._id}`}
                   className="text-blue-600 hover:underline"
                 >
-                  📊 Lihat Skor
+                  📊 View Score
                 </Link>
               </td>
             </tr>

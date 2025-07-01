@@ -47,8 +47,8 @@ export default function HotsByChapterPage() {
                     Format: {q.activity_format} | Activity: {q.activity_type}
                   </p>
                 </div>
-                <span className={`text-sm font-semibold ${statusMap[q.question_id] ? 'text-green-600' : 'text-red-500'}`}>
-                  {statusMap[q.question_id] ? '✔️ Sudah' : '❌ Belum'}
+                <span className={`text-center text-sm font-semibold ${statusMap[q.question_id] ? 'text-green-600' : 'text-red-500'}`}>
+                  {statusMap[q.question_id] ? '✔️ Done' : '❌ Undone'}
                 </span>
               </div>
 

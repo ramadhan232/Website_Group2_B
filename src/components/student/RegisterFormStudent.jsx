@@ -40,14 +40,17 @@ export default function RegisterFormStudent() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="grid grid-col items-center justify-center min-h-60 bg-white m-8 rounded-2xl shadow-md  max-w-full" >
+      <div className="grid grid-col items-center justify-center gap-6 text-center space-y-1 m-6">
+        <h1 className='text-xl font-bold text-black'> Student Registration </h1>
+    <form onSubmit={handleSubmit} className="grid grid-cols-1 w-full md:min-w-md gap-3">
       <input
         type="text"
         name="username"
         placeholder="Username"
         value={formData.username}
         onChange={handleChange}
-        className="w-full px-3 py-2 border rounded"
+        className="max-w-full text-black px-3 py-2 border rounded"
         required
       />
       <input
@@ -56,7 +59,7 @@ export default function RegisterFormStudent() {
         placeholder="Full Name"
         value={formData.name}
         onChange={handleChange}
-        className="w-full px-3 py-2 border rounded"
+        className="max-w-full text-black px-3 py-2 border rounded"
         required
       />
       <input
@@ -65,13 +68,15 @@ export default function RegisterFormStudent() {
         placeholder="Password"
         value={formData.password}
         onChange={handleChange}
-        className="w-full px-3 py-2 border rounded"
+        className="max-w-full px-3 text-black py-2 border rounded"
         required
       />
       {error && <p className="text-red-500 text-sm">{error}</p>}
-      <button className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+      <button className="max-w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
         Register
       </button>
     </form>
+    </div>
+    </div>
   );
 }

@@ -35,7 +35,7 @@ export default function LoginFormStudent() {
 
 
   return (
-    <div className="grid grid-col items-center justify-center min-h-80 bg-white m-8 rounded-2xl shadow-md min-w-md">
+    <div className="grid grid-col items-center justify-center min-h-80 bg-white m-8 rounded-2xl shadow-md max-w-full">
       {/* Heading */}
   <div className="text-center space-y-1 m-6">
     <h2 className="text-2xl font-bold text-gray-900">Student</h2>
@@ -50,7 +50,7 @@ export default function LoginFormStudent() {
   {/* Username */}
   <div className="space-y-1">
     <div className="flex flex-row gap-2 items-center">
-      <User className="h-4 w-4" />
+      <User className="text-black h-4 w-4" />
     <label htmlFor="username" className="col-span-3 text-sm font-medium text-gray-700">
       Username
     </label>
@@ -64,7 +64,7 @@ export default function LoginFormStudent() {
         onChange={(e) => setUsername(e.target.value)}
         required
         placeholder="Your Username"
-        className="w-sm  text-sm rounded-md border border-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        className="w-sm text-black text-sm rounded-md border border-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
       />
     </div>
   </div>
@@ -72,7 +72,7 @@ export default function LoginFormStudent() {
   {/* Password */}
   <div className="space-y-1">
     <div className="flex flex-row gap-2 items-center">
-      <Lock className="h-4 w-4" />
+      <Lock className="text-black h-4 w-4" />
       <label htmlFor="password" className="text-sm font-medium text-gray-700">
       Password
     </label>
@@ -84,8 +84,8 @@ export default function LoginFormStudent() {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         required
-        placeholder="your password"
-        className="w-full pl-10  text-sm rounded-md border border-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        placeholder="Your password"
+        className="w-full text-black pl-10 text-sm rounded-md border border-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
       />
       <button
         type="button"
@@ -101,7 +101,7 @@ export default function LoginFormStudent() {
   {/* Submit */}
   <button
     type="submit"
-    className="w-full h-8 bg-indigo-600 hover:bg-indigo-700 text-white py-2 text-sm font-semibold rounded-lg transition-colors"
+    className="max-w-full h-8 bg-indigo-600 hover:bg-indigo-700 text-white py-2 text-sm font-semibold rounded-lg transition-colors"
   >
     Login
   </button>

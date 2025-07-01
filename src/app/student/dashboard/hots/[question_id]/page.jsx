@@ -47,10 +47,16 @@ export default function HotsQuestionPage() {
 }, [status, session?.user?.id, question_id]);
 
     const parseMatching = (input) => {
-    return input.split(',').map(pair => {
-      const [left, right] = pair.trim().split('-');
-      return { left: left.trim(), right: right.trim() };
-    });
+    const pairs = input.split(',').map(pair => pair.trim());
+    const result = [];
+
+    for (const pair of pairs) {
+      const [left, right] = pair.split('-').map(s => s?.trim());
+      if (!left || !right) throw new Error(`Format tidak valid pada pasangan: "${pair}"`);
+      result.push({ left, right });
+    }
+
+    return result;
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -89,15 +95,21 @@ export default function HotsQuestionPage() {
 
   if (alreadyAnswered || submitted) {
     return (
-      <div className="p-6 text-green-700 bg-green-50 rounded">
-        ✅ Kamu sudah mengerjakan soal ini.
-      </div>
+      <div className="flex flex-col items-start gap-4 p-6 text-green-700 rounded">
+      <p>✅ You have already done this activities</p>
+      <button
+        onClick={() => window.history.back()}
+        className="text-sm text-blue-600 underline hover:text-blue-800"
+      >
+        ← Back to HOTS Questions
+      </button>
+    </div>
     );
   }
 
   return (
     <div className="max-w-3xl mx-auto p-6 bg-white shadow rounded">
-      <h1 className="text-xl font-bold text-blue-700 mb-2">🔥 HOTS – {question.question_id}</h1>
+      <h1 className="text-xl font-bold text-blue-700 mb-2">🔥 HOTS - {question.question_id}</h1>
       <p className="text-gray-700 mb-1">{question.question_text}</p>
       <p className="text-sm text-gray-500 mb-4">
         Format: <strong>{question.activity_format}</strong> | Activity: {question.activity_type}
@@ -114,14 +126,19 @@ export default function HotsQuestionPage() {
             onChange={(e) => setResponse(e.target.value)}
           />
         ) : (
-          <input
-            required
-            type="text"
-            className="w-full border p-3 rounded"
-            placeholder="Contoh: A-1, B-3, C-2"
-            value={response}
-            onChange={(e) => setResponse(e.target.value)}
-          />
+          <>
+            <input
+              required
+              type="text"
+              className="w-full border p-3 rounded"
+              placeholder="Contoh: A-1, B-3, C-2"
+              value={response}
+              onChange={(e) => setResponse(e.target.value)}
+            />
+            <p className="text-xs text-gray-500">
+              Gunakan format: <code>A-1, B-2, C-3</code> untuk mencocokkan pasangan
+            </p>
+          </>
         )}
 
         <button

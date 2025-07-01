@@ -17,11 +17,11 @@ export default function TeacherNavbar() {
           </div>
 
           {/* Navigation Links */}
-          <div className="hidden md:flex space-x-6 flex-row gap-8">
-            <a href="/teacher/dashboard/home" className="text-gray-700 hover:text-blue-600 font-medium">Home</a>
-            <a href="/teacher/dashboard/student" className="text-gray-700 hover:text-blue-600 font-medium">Student</a>
-            <a href="/teacher/dashboard/score" className="text-gray-700 hover:text-blue-600 font-medium">Score</a>
-            <a href="/teacher/dashboard/score/summary" className="text-gray-700 hover:text-blue-600 font-medium">Summary</a>
+          <div className="flex space-x-6 flex-row gap-2">
+            <a href="/teacher/dashboard/home" className=" font-medium"><span className="text-blue-600 hover:text-blue-800">Home</span></a>
+            <a href="/teacher/dashboard/student" className=" font-medium"><span className="text-blue-600 hover:text-blue-800">Student</span></a>
+            <a href="/teacher/dashboard/score" className=" font-medium"><span className="text-blue-600 hover:text-blue-800">Score</span></a>
+            <a href="/teacher/dashboard/score/summary" className=" font-medium"><span className="text-blue-600 hover:text-blue-800">Summary</span></a>
           </div>
 
           {/* User Info + Logout */}

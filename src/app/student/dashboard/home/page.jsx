@@ -31,7 +31,7 @@ export default function StudentHomePage() {
   const name = session?.user?.name;
   
   return (
-    <div className="space-y-10">
+    <div >
       <LiteracyList />
     </div>
   );

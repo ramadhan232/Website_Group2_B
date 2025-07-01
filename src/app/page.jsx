@@ -3,7 +3,7 @@
 export default function HomePage() {
   return (
     <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-100 via-blue-100 to-white px-4 sm:px-8">
-      <div className="bg-white rounded-4xl shadow-2xl lg:p-100 max-w-4xl w-full h-full flex flex-col justify-between text-center items-center p-4 sm:p-8">
+      <div className="bg-white rounded-4xl shadow-2xl lg:p-100 max-w-4xl w-full flex flex-col justify-between text-center items-center p-4 sm:p-8">
       <div >
       <svg
           viewBox="0 0 24 24"
@@ -36,15 +36,15 @@ export default function HomePage() {
         <div className="flex flex-cols-1 sm:flex-cols-2 gap-5 mx-10">
           <a
             href="/student/dashboard/home"
-            className="w-100 h-10 content-center-safe bg-linear-to-t from-blue-800 to-blue-500 hover:bg-blue-950 text-white py-4 m-10 rounded-xl shadow-lg transition-all font-semibold text-lg"
+            className="w-full content-center-safe bg-linear-to-t from-blue-800 to-blue-500 hover:bg-blue-950 text-white py-4  rounded-xl shadow-lg transition-all font-semibold text-lg"
           >
-            📘 Start Learnings
+             Start Learnings
           </a>
           <a
             href="/teacher/dashboard/home"
-            className="w-100 h-10 content-center-safe bg-linear-to-t from-teal-800 to-teal-600 hover:bg-green-700 text-white py-4 rounded-xl shadow-lg transition-all font-semibold text-lg"
+            className="w-full content-center-safe bg-linear-to-t from-teal-800 to-teal-600 hover:bg-green-700 text-white py-4 rounded-xl shadow-lg transition-all font-semibold text-lg"
           >
-            🎓 Teacher Dashboard
+            Teacher Dashboard
           </a>
         </div>
 

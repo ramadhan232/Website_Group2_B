@@ -1,32 +1,43 @@
-    
-
 import { NextResponse } from 'next/server';
 import connectToDatabase from '@/lib/mongoose';
 import HotsActivity from '@/models/HotsActivity';
-import HotsQuestion from '@/models/HotsQuestion';
-import User from '@/models/User';
 import Score from '@/models/Score';
+import HotsQuestion from '@/models/HotsQuestion';
 
-export async function GET(request) {
-  await connectToDatabase();
+export async function GET() {
+  try {
+    await connectToDatabase();
 
-  const allScores = await Score.find({}).lean();
-  const scoredSet = new Set(allScores.map((s) => `${s.student_id}-${s.question_id}`));
+    // Ambil hanya aktivitas yang belum dinilai
+    const activities = await HotsActivity.find({ is_reviewed: false })
+      .populate('student_id', 'name username')
+      .lean();
 
-  const rawActivities = await HotsActivity.find({})
-    .populate('student_id', 'name username')
-    .lean();
+    // Ambil semua skor terkait untuk filter manual (optional jika query langsung tidak mencukupi)
+    const scoredMap = {};
+    const scored = await Score.find({});
+    scored.forEach((s) => {
+      scoredMap[`${s.student_id}_${s.question_id}`] = true;
+    });
 
-  const questions = await HotsQuestion.find({}).lean();
-  const questionMap = Object.fromEntries(questions.map((q) => [q.question_id, q]));
+    // Filter: hanya activity yang belum punya skor
+    const unscoredActivities = activities.filter(
+      (a) => !scoredMap[`${a.student_id._id}_${a.question_id}`]
+    );
 
-  const unscored = rawActivities
-    .filter((a) => !scoredSet.has(`${a.student_id.toString()}-${a.question_id}`))
-    .map((a) => ({
+    // Populate question manually (karena question_id bukan ObjectId)
+    const questionIds = [...new Set(unscoredActivities.map((a) => a.question_id))];
+    const questions = await HotsQuestion.find({ question_id: { $in: questionIds } }).lean();
+    const questionMap = Object.fromEntries(questions.map((q) => [q.question_id, q]));
+
+    const withQuestion = unscoredActivities.map((a) => ({
       ...a,
-      question: questionMap[a.question_id],
+      question: questionMap[a.question_id] || null,
     }));
 
-  return NextResponse.json(unscored);
+    return NextResponse.json(withQuestion);
+  } catch (err) {
+    console.error('❌ Error fetching unscored activities:', err);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+  }
 }
-

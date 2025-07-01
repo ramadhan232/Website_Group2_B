@@ -4,6 +4,7 @@ import connectToDatabase from '@/lib/mongoose';
 import Score from '@/models/Score';
 import HotsQuestion from '@/models/HotsQuestion';
 import generateScoreSummary from '@/lib/generateScoreSummary';
+import HotsActivity from '@/models/HotsActivity';
 
 export async function GET(req) {
   try {
@@ -60,6 +61,12 @@ export async function POST(req) {
       score,
       comment,
     });
+
+    // Setelah berhasil simpan skor:
+    await HotsActivity.findOneAndUpdate(
+      { student_id, question_id },
+      { is_reviewed: true }
+    );
 
     // ✅ Auto generate ScoreSummary (per_question, per_chapter, total)
     await generateScoreSummary(student_id); // buat fungsi ini sesuai modelmu

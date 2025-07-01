@@ -1,5 +1,5 @@
 'use client';
-
+import '@/styles/globals.css';
 import LogoutButton from '@/components/student/LogoutButton';
 import { useSession, signOut } from 'next-auth/react';
 
@@ -17,15 +17,14 @@ export default function StudentNavbar() {
           </div>
 
           {/* Navigation Links */}
-          <div className="hidden md:flex space-x-6 flex-row gap-8">
-            <a href="/student/dashboard/home" className="text-gray-700 hover:text-blue-600 font-medium">Home</a>
-            <a href="/student/dashboard/hots" className="text-gray-700 hover:text-blue-600 font-medium">HOTS</a>
-            <a href="/student/dashboard/score" className="text-gray-700 hover:text-blue-600 font-medium">Score</a>
-
+          <div className="md:flex text-blue-600  grid grid-cols-3 gap-x-3">
+            <a href="/student/dashboard/home" className="font-medium"><span className='hover:text-blue-900'>Home</span></a>
+            <a href="/student/dashboard/hots" className="font-medium"><span className='hover:text-blue-900'>HOTS</span></a>
+            <a href="/student/dashboard/score" className="font-medium"><span className='hover:text-blue-900'>Score</span></a>
           </div>
 
           {/* User Info + Logout */}
-          <div className="flex items-center space-x-4 justify-items-end">
+          <div className="flex items-center justify-items-end">
             <div className="flex items-center space-x-2">
               <div className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-semibold">
                 {session?.user?.name?.[0] || 'S'}
