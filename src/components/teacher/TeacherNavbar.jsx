@@ -1,6 +1,6 @@
 'use client';
 
-import LogoutButton from '@/components/Teacher/LogoutButton';
+import LogoutButton from '@/components/teacher/LogoutButton';
 import { useSession, signOut } from 'next-auth/react';
 
 
