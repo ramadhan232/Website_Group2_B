@@ -1,4 +1,4 @@
-import LoginFormTeacher from '@/components/Teacher/LoginFormTeacher';
+import LoginFormTeacher from '@/components/teacher/LoginFormTeacher';
 
 export default function TeacherLoginPage() {
   return (
